@@ -1,6 +1,8 @@
 const posicaoInferiorInicial = 0;
 const posicaoEsquerdaInicial = 0;
 const medida = "px";
+const alturaInicialAvatar = 100; // em pixels
+const larguraInicialAvatar = 100; // em pixels
 
 const imgCenario = document.createElement('img');
 imgCenario.src = './cenario.jpg';
@@ -17,13 +19,15 @@ imgAvatar.src = './avatar.png';
 imgAvatar.style.position = "absolute";
 // imgAvatar.style.top = (window.screen.width / 4) + medida;
 // imgAvatar.style.left = (window.screen.height / 4) + medida;
-imgAvatar.style.top = "50%";
-imgAvatar.style.left = "50%";
-imgAvatar.style.width = "100px";
-imgAvatar.style.height = "100px";
+imgAvatar.style.top = ((window.innerHeight / 2) - (alturaInicialAvatar / 2)) + medida;
+imgAvatar.style.left = ((window.innerWidth / 2) - (larguraInicialAvatar / 2)) + medida;
+imgAvatar.style.width = larguraInicialAvatar + medida;
+imgAvatar.style.height = alturaInicialAvatar + medida;
 imgAvatar.style.zIndex = 999;
 imgAvatar.style.rotate = 0 + "deg";
 document.body.appendChild(imgAvatar);
+
+console.log(window.innerWidth);
 
 (function() { // execução em tempo real das linhas de código do bloco de função inominada
     document.onmousemove = handleMouseMove;
@@ -49,8 +53,8 @@ document.body.appendChild(imgAvatar);
             }
 
             console.clear();
-            console.log("event.pageX: ", event.pageX);
-            console.log("event.pageY: ", event.pageY);
+            console.log("event.pageX: ", event.pageX - (parseInt(imgAvatar.style.left.replace("px","")) + (larguraInicialAvatar / 2)));
+            console.log("event.pageY: ", event.pageY - (parseInt(imgAvatar.style.top.replace("px","")) + (alturaInicialAvatar / 2)));
             return false;
         } catch (e) {
             console.error("Eita! Aconteceu alguma coisa que não deu certo finalizar as linhas de código para o evento onmousemove. Veja o erro: ", e);
