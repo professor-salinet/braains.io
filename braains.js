@@ -37,15 +37,16 @@ document.body.appendChild(imgAvatar);
 
 function moverCenarioParaDireita() {
     let leftCenario = parseInt(imgCenario.style.left.replace("px",""));
-
-    if (leftCenario < posicaoAvatarEsquerdaInicial) {
+    console.log("leftCenario: ", leftCenario);
+    console.log("posicaoAvatarEsquerdaInicial: ", posicaoAvatarEsquerdaInicial);
+    // if (leftCenario > posicaoAvatarEsquerdaInicial) {
         imgCenario.style.left = (leftCenario - tamanhoMovimento) + "px";
-    }
+    // }
 }
 
 function moverCenarioParaEsquerda() {
     let leftCenario = parseInt(imgCenario.style.left.replace("px",""));
-    if (leftCenario > parseInt(imgAvatar.style.left.replace("px",""))) {
+    if (leftCenario < parseInt(imgAvatar.style.left.replace("px",""))) {
         imgCenario.style.left = (leftCenario + tamanhoMovimento) + "px";
     }
 }
@@ -97,7 +98,7 @@ function moverCenarioParaBaixo() {
     function handleKeyDown(event) {
         try {
             event = event || window.event; // IE-ism
-            console.log(event.keyCode);
+            // console.log(event.keyCode); // exibe o código da tecla pressionada
             switch (event.keyCode) {
                 case 39:
                 case 68:
