@@ -1,11 +1,13 @@
 const medida = "px";
+const medidaRotacao = "deg";
 const alturaInicialAvatar = 100; // em pixels
 const larguraInicialAvatar = 100; // em pixels
-const tamanhoMovimento = 10;
+const tamanhoMovimento = 20;
 const centroTelaHorizontal = window.innerWidth / 2;
 const centroTelaVertical = window.innerHeight / 2;
 const metadeLarguraAvatar = larguraInicialAvatar / 2;
 const metadeAlturaAvatar = alturaInicialAvatar / 2;
+const multiplicadorTamanhoCenario = 2;
 
 const posicaoCenarioSuperiorInicial = 0;
 const posicaoCenarioEsquerdaInicial = 0;
@@ -14,8 +16,8 @@ imgCenario.src = './cenario.jpg';
 imgCenario.style.position = "fixed";
 imgCenario.style.top = posicaoCenarioSuperiorInicial + medida;
 imgCenario.style.left = posicaoCenarioEsquerdaInicial + medida;
-imgCenario.style.width = (window.screen.width * 4) + medida;
-imgCenario.style.height = (window.screen.height * 4) + medida;
+imgCenario.style.width = (window.screen.width * multiplicadorTamanhoCenario) + medida;
+imgCenario.style.height = (window.screen.height * multiplicadorTamanhoCenario) + medida;
 imgCenario.style.zIndex = -1;
 document.body.appendChild(imgCenario);
 
@@ -29,7 +31,7 @@ imgAvatar.style.left = posicaoAvatarEsquerdaInicial + medida;
 imgAvatar.style.width = larguraInicialAvatar + medida;
 imgAvatar.style.height = alturaInicialAvatar + medida;
 imgAvatar.style.zIndex = 999;
-imgAvatar.style.rotate = 0 + "deg";
+imgAvatar.style.rotate = 0 + medidaRotacao;
 document.body.appendChild(imgAvatar);
 
 // console.log("window.innerWidth: ", window.innerWidth);
@@ -46,7 +48,7 @@ function moverCenarioParaDireita() {
 
 function moverCenarioParaEsquerda() {
     let leftCenario = parseInt(imgCenario.style.left.replace("px",""));
-    if (leftCenario < parseInt(imgAvatar.style.left.replace("px",""))) {
+    if (leftCenario < posicaoAvatarEsquerdaInicial) {
         imgCenario.style.left = (leftCenario + tamanhoMovimento) + "px";
     }
 }
