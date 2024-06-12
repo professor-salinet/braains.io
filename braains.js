@@ -1,25 +1,31 @@
-const posicaoInferiorInicial = 0;
-const posicaoEsquerdaInicial = 0;
 const medida = "px";
 const alturaInicialAvatar = 100; // em pixels
 const larguraInicialAvatar = 100; // em pixels
 const tamanhoMovimento = 10;
+const centroTelaHorizontal = window.innerWidth / 2;
+const centroTelaVertical = window.innerHeight / 2;
+const metadeLarguraAvatar = larguraInicialAvatar / 2;
+const metadeAlturaAvatar = alturaInicialAvatar / 2;
 
+const posicaoCenarioSuperiorInicial = 0;
+const posicaoCenarioEsquerdaInicial = 0;
 const imgCenario = document.createElement('img');
 imgCenario.src = './cenario.jpg';
 imgCenario.style.position = "fixed";
-imgCenario.style.top = posicaoInferiorInicial + medida;
-imgCenario.style.left = posicaoEsquerdaInicial + medida;
+imgCenario.style.top = posicaoCenarioSuperiorInicial + medida;
+imgCenario.style.left = posicaoCenarioEsquerdaInicial + medida;
 imgCenario.style.width = (window.screen.width * 4) + medida;
 imgCenario.style.height = (window.screen.height * 4) + medida;
 imgCenario.style.zIndex = -1;
 document.body.appendChild(imgCenario);
 
+const posicaoAvatarSuperiorInicial = centroTelaVertical - metadeAlturaAvatar;
+const posicaoAvatarEsquerdaInicial = centroTelaHorizontal - metadeLarguraAvatar;
 const imgAvatar = document.createElement('img');
 imgAvatar.src = './avatar.png';
 imgAvatar.style.position = "absolute";
-imgAvatar.style.top = ((window.innerHeight / 2) - (alturaInicialAvatar / 2)) + medida;
-imgAvatar.style.left = ((window.innerWidth / 2) - (larguraInicialAvatar / 2)) + medida;
+imgAvatar.style.top = posicaoAvatarSuperiorInicial + medida;
+imgAvatar.style.left = posicaoAvatarEsquerdaInicial + medida;
 imgAvatar.style.width = larguraInicialAvatar + medida;
 imgAvatar.style.height = alturaInicialAvatar + medida;
 imgAvatar.style.zIndex = 999;
@@ -31,12 +37,17 @@ document.body.appendChild(imgAvatar);
 
 function moverCenarioParaDireita() {
     let leftCenario = parseInt(imgCenario.style.left.replace("px",""));
-    imgCenario.style.left = (leftCenario - tamanhoMovimento) + "px";
+
+    if (leftCenario < posicaoAvatarEsquerdaInicial) {
+        imgCenario.style.left = (leftCenario - tamanhoMovimento) + "px";
+    }
 }
 
 function moverCenarioParaEsquerda() {
     let leftCenario = parseInt(imgCenario.style.left.replace("px",""));
-    imgCenario.style.left = (leftCenario + tamanhoMovimento) + "px";
+    if (leftCenario > parseInt(imgAvatar.style.left.replace("px",""))) {
+        imgCenario.style.left = (leftCenario + tamanhoMovimento) + "px";
+    }
 }
 
 function moverCenarioParaCima() {
@@ -90,22 +101,22 @@ function moverCenarioParaBaixo() {
             switch (event.keyCode) {
                 case 39:
                 case 68:
-                    console.log("seta/movimento para direita");
+                    // console.log("seta/movimento para direita");
                     moverCenarioParaDireita();
                     break;
                 case 37:
                 case 65:
-                    console.log("seta/movimento para esquerda");
+                    // console.log("seta/movimento para esquerda");
                     moverCenarioParaEsquerda();
                     break;
                 case 38:
                 case 87:
-                    console.log("seta/movimento para cima");
+                    // console.log("seta/movimento para cima");
                     moverCenarioParaCima();
                     break;
                 case 40:
                 case 83:
-                    console.log("seta/movimento para baixo");
+                    // console.log("seta/movimento para baixo");
                     moverCenarioParaBaixo();
                     break;
                 default:
