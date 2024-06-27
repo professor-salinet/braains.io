@@ -15,23 +15,42 @@ const larguraTotalCenario = window.screen.width * multiplicadorTamanhoCenario;
 const alturaTotalCenario = window.screen.height * multiplicadorTamanhoCenario;
 
 const divCenario = document.createElement("div");
-divCenario.style.position = "relative";
+divCenario.style.position = "fixed";
 divCenario.style.top = posicaoCenarioSuperiorInicial + medida;
 divCenario.style.left = posicaoCenarioEsquerdaInicial + medida;
-divCenario.style.width = larguraTotalCenario + medida;
-divCenario.style.height = alturaTotalCenario + medida;
+// divCenario.style.width = larguraTotalCenario + medida;
+// divCenario.style.height = alturaTotalCenario + medida;
 divCenario.style.zIndex = -1;
 
 const imgCenario = document.createElement('img');
 imgCenario.src = './cenario.jpg';
-imgCenario.style.position = "relative";
+imgCenario.style.position = "absolute";
 imgCenario.style.top = posicaoCenarioSuperiorInicial + medida;
 imgCenario.style.left = posicaoCenarioEsquerdaInicial + medida;
 // imgCenario.style.width = larguraTotalCenario + medida;
 // imgCenario.style.height = alturaTotalCenario + medida;
 imgCenario.style.zIndex = -1;
-
 divCenario.appendChild(imgCenario);
+
+var mtzAirDrop = [];
+
+function novoAirDropImg() {
+    let elementTemp = document.createElement('img');
+    elementTemp.src = './img/units/air-drop.webp';
+    elementTemp.style.position = "absolute";
+    elementTemp.style.top = Math.floor(Math.random() * 1000) + medida;
+    elementTemp.style.left = Math.floor(Math.random() * 1000) + medida;
+    // elementTemp.style.width = larguraTotalCenario + medida;
+    // elementTemp.style.height = alturaTotalCenario + medida;
+    elementTemp.style.zIndex = 999;
+    mtzAirDrop.push(elementTemp);
+    divCenario.appendChild(mtzAirDrop[mtzAirDrop.length - 1]);
+}
+
+for (let n = 1; n <= 10; n++) {
+    novoAirDropImg();
+}
+
 document.body.appendChild(divCenario);
 
 var larguraNaturalCenario;
@@ -41,6 +60,8 @@ var poll = setInterval(function () {
         clearInterval(poll);
         larguraNaturalCenario = imgCenario.naturalWidth;
         alturaNaturalCenario = imgCenario.naturalHeight;
+        divCenario.style.width = larguraNaturalCenario + medida;
+        divCenario.style.height = alturaNaturalCenario + medida;
         console.log(imgCenario.naturalWidth, imgCenario.naturalHeight);
     }
 }, 10);
